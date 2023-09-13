@@ -21,9 +21,12 @@ function Editor() {
                 setValue(data.code.replace(/\\/g, '\\'));
             })
             .catch(err => console.log(err))
-
+        socket.on('connect', () => {
+            socket.emit('join-room', exercise);
+        })
         return () => {
             socket.off('write');
+            socket.off('connect');
         }
     }, [])
     function checkCode() {
