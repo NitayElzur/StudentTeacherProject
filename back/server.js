@@ -52,9 +52,17 @@ io.on('connection', socket => {
         console.log('update');
     })
 
-    socket.on('join-room', (room, role) => {
+    socket.on('join-room', (room) => {
+        // console.log(room);
         socket.join(room);
-        console.log(role);
-        socket.emit('role', role ? role : io.sockets.adapter.rooms.get(room).size === 1 ? 'teacher' : 'student')
+    })
+
+    socket.on('leave-room', (room) => {
+        socket.leave(room);
+        console.log(socket.id + ' left room ' + room);
+    })
+
+    socket.on('get-role', (room) => {
+        socket.emit('role', io.sockets.adapter.rooms.get(room).size === 1 ? 'teacher' : 'student')
     })
 })

@@ -1,5 +1,7 @@
 import './Layout.css';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { SocketContext } from '../../contexts/SocketContext';
 
 function Layout() {
     const navigate = useNavigate();

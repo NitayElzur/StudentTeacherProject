@@ -11,7 +11,8 @@ function Editor() {
     const [exerciseObj, setExerciseObj] = useState();
     const [value, setValue] = useState('//Starting off empty');
     useEffect(() => {
-        socket.emit('join-room', exercise, role)
+        socket.emit('join-room', exercise);
+        socket.emit('get-role', exercise);
         socket.on('write', (value) => {
             setValue(value)
         })
@@ -21,12 +22,9 @@ function Editor() {
                 setValue(data.code.replace(/\\/g, '\\'));
             })
             .catch(err => console.log(err))
-        socket.on('connect', () => {
-            socket.emit('join-room', exercise);
-        })
         return () => {
             socket.off('write');
-            socket.off('connect');
+            socket.emit('leave-room', exercise);
         }
     }, [])
     function checkCode() {
@@ -34,7 +32,7 @@ function Editor() {
     }
     function handleChange(value) {
         setValue(value)
-        role !== 'teacher' && socket.emit('write', value, exercise)
+        role !== 'teacher' && socket.volatile.emit('write', value, exercise)
     }
     return (
         <div id="editor-main">
@@ -48,6 +46,9 @@ function Editor() {
                 theme='vs-dark'
             />
             {role !== 'teacher' && <button onClick={checkCode}>Turn in my code</button>}
+            <button onClick={() => {
+                socket.io.engine.close()
+            }}>click</button>
         </div>
     )
 }

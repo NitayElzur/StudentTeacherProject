@@ -18,32 +18,16 @@ export const SocketProvider = ({ children }) => {
         socket.on('connect-error', (err) => {
             console.log(err.message);
         })
-        socket.on('connect', () => {
-            console.log('connected as ' + socket.id);
-            socket.recovered && console.log('recovered');
-
-            setTimeout(() => {
-                if(socket.io.engine) {
-                    socket.io.engine.close();
-                }
-            }, 5 * 1000);
-        })
         socket.on('disconnect', () => {
             console.log('disconnected');
         })
-        socket.on('reconnect', (attemptNumber) => {
-            console.log(`Reconnected to the server after ${attemptNumber} attempts`);
-        })
-        socket.on('reconnect_failed', () => {
-            console.log('Failed to reconnect');
+        socket.on('connect', () => {
+            socket.recovered && console.log('recovered');
         })
         return () => {
             socket.off('role');
             socket.off('connect-error');
-            socket.off('connect');
             socket.off('disconnect');
-            socket.off('reconnect');
-            socket.off('reconnect_failed');
         }
     }, [])
     return (
