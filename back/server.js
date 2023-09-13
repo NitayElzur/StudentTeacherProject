@@ -20,13 +20,18 @@ const server = app.listen(3000, () => {
 })
 
 require('dotenv').config();
-const io = require('socket.io')(server, {
+const socketIO = require('socket.io')
+const io = new socketIO.Server(server, {
     cors: {
         origin: process.env.SERVER,
         methods: ['GET', 'POST'],
         credentials: true
+    },
+    connectionStateRecovery: {
+        maxDisconnectionDuration: 2 * 60 * 1000,
+        skipMiddlewares: true
     }
-});
+})
 io.on('connection', socket => {
     console.log(socket.id + ' connected. total users: ' + io.engine.clientsCount);
 
