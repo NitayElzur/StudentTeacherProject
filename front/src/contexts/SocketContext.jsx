@@ -11,8 +11,10 @@ export const SocketProvider = ({ children }) => {
             setRole(role)
         }
         socket.on('role', handleRole);
+        socket.on('connect-error', (err) => {
+            console.log(err.message);
+        })
         return () => {
-            socket.off('connect');
             socket.off('role');
         }
     }, [])
