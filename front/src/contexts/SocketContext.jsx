@@ -9,29 +9,18 @@ const socket = io(import.meta.env.VITE_HOST, {
 });
 
 export const SocketProvider = ({ children }) => {
-    const [role, setRole] = useState();
     useEffect(() => {
-        function handleRole(role) {
-            setRole(role)
-        }
-        socket.on('role', handleRole);
+        
         socket.on('connect-error', (err) => {
             console.log(err.message);
-        })
-        socket.on('disconnect', () => {
-            console.log('disconnected');
-        })
-        socket.on('connect', () => {
-            socket.recovered && console.log('recovered');
         })
         return () => {
             socket.off('role');
             socket.off('connect-error');
-            socket.off('disconnect');
         }
     }, [])
     return (
-        <SocketContext.Provider value={{ socket, role, setRole }}>
+        <SocketContext.Provider value={{ socket }}>
             {children}
         </SocketContext.Provider>
     )
