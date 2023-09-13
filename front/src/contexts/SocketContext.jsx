@@ -14,8 +14,13 @@ export const SocketProvider = ({ children }) => {
         socket.on('connect-error', (err) => {
             console.log(err.message);
         })
+        socket.on('connect', () => {
+            console.log('connected as ' + socket.id);
+        })
         return () => {
             socket.off('role');
+            socket.off('connect-error');
+            socket.off('connect');
         }
     }, [])
     return (
