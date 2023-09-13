@@ -30,7 +30,7 @@ const io = require('socket.io')(server, {
 let userCount = 0;
 io.on('connection', socket => {
     userCount++;
-    // console.log(socket.id + ' connected. total users: ' + io.engine.clientsCount);
+    console.log(socket.id + ' connected. total users: ' + io.engine.clientsCount);
 
     socket.on('disconnect', () => {
         userCount--;
