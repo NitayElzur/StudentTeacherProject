@@ -1,0 +1,29 @@
+#editor-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    #run-code {
+        align-self: flex-start;
+    }
+
+    >button {
+        border: 2px solid var(--orange);
+        padding: 4px;
+        border-radius: 4px;
+    }
+
+    >* {
+        margin: 8px 0;
+    }
+}
+
+#code-error {
+    color: var(--orange);
+    position: fixed;
+    top: 20vh;
+    width: 100%;
+    z-index: 1;
+    background-color: white;
+    height: 70vh;
+}

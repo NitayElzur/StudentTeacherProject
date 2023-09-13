@@ -1,0 +1,26 @@
+#main-content {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+
+    #header,
+    #non-header {
+        width: 100%;
+        background-color: var(--black-background);
+        color: var(--orange);
+    }
+
+    #header {
+        position: fixed;
+        height: 10vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    #non-header {
+        position: absolute;
+        top: 10vh;
+        height: 90%;
+    }
+}
