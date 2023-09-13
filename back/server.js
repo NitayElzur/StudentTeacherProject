@@ -52,8 +52,8 @@ io.on('connection', socket => {
         console.log('update');
     })
 
-    socket.on('join-room', (room) => {
+    socket.on('join-room', (room, role) => {
         socket.join(room);
-        socket.emit('role', io.sockets.adapter.rooms.get(room).size === 1 ? 'teacher' : 'student')
+        socket.emit('role', role ? role : io.sockets.adapter.rooms.get(room).size === 1 ? 'teacher' : 'student')
     })
 })

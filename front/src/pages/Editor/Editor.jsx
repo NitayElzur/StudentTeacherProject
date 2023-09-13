@@ -11,7 +11,7 @@ function Editor() {
     const [exerciseObj, setExerciseObj] = useState();
     const [value, setValue] = useState('//Starting off empty');
     useEffect(() => {
-        socket.emit('join-room', exercise)
+        socket.emit('join-room', exercise, role)
         socket.on('write', (value) => {
             setValue(value)
         })
