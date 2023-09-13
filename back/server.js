@@ -27,17 +27,16 @@ const io = require('socket.io')(server, {
         credentials: true
     }
 });
-let userCount = 0;
 io.on('connection', socket => {
-    userCount++;
     console.log(socket.id + ' connected. total users: ' + io.engine.clientsCount);
 
     socket.on('disconnect', () => {
-        userCount--;
+        console.log(socket.id + ' disconnected');
     })
 
     socket.on('write', (value, room) => {
         socket.to(room).emit('write', value)
+        console.log('update');
     })
 
     socket.on('join-room', (room) => {
