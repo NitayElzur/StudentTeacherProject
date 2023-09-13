@@ -1,4 +1,4 @@
-In order to run locally:
+In order to run locally:  
 Make sure to run npm install for both the /front and /back folders
 As well as paste the env file (sent in the email) to it's respective folder  
 After finishing the steps above run:  
