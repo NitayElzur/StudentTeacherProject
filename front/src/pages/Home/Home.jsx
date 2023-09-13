@@ -1,6 +1,6 @@
 import './Home.css';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { fetch } from '../../utils/exercises';
 import { Link } from 'react-router-dom';
 

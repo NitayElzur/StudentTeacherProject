@@ -21,12 +21,17 @@ function Editor() {
     const navigate = useNavigate();
     useEffect(() => {
         function handleRole(role) {
-            if (localStorage.getItem('role')) {
-                setRole(localStorage.getItem('role'))
+            if (import.meta.env.DEV) {
+                setRole(role);
             }
             else {
-                localStorage.setItem('role', role);
-                setRole(role);
+                if (localStorage.getItem('role')) {
+                    setRole(localStorage.getItem('role'))
+                }
+                else {
+                    localStorage.setItem('role', role);
+                    setRole(role);
+                }
             }
         }
         socket.on('role', handleRole);
@@ -51,13 +56,11 @@ function Editor() {
                     socket.volatile.emit('write', value, exercise);
                 }
                 setCustomeAlert('You have reconnected')
-                console.log('re');
             }
         })
 
         socket.on('disconnect', () => {
             setCustomeAlert('You have disconnected')
-            console.log('de');
         })
 
         return () => {

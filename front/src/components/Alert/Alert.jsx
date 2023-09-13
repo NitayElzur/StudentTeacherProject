@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import './Alert.css';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 function Alert({ children, text, setState }) {
