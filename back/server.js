@@ -39,6 +39,14 @@ io.on('connection', socket => {
         console.log(socket.id + ' disconnected');
     })
 
+    socket.on('reconnect', () => {
+        console.log(`A client reconnected after ${attemptNumber} attempts`);
+    })
+
+    socket.on('reconnect_failed', () => {
+        console.log('A client failed to reconnect');
+    })
+
     socket.on('write', (value, room) => {
         socket.to(room).emit('write', value)
         console.log('update');
