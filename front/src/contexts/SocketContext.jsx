@@ -20,6 +20,13 @@ export const SocketProvider = ({ children }) => {
         })
         socket.on('connect', () => {
             console.log('connected as ' + socket.id);
+            socket.recovered && console.log('recovered');
+
+            setTimeout(() => {
+                if(socket.io.engine) {
+                    socket.io.engine.close();
+                }
+            }, 5 * 1000);
         })
         socket.on('disconnect', () => {
             console.log('disconnected');
